@@ -1,90 +1,78 @@
-import {useState,useEffect,createContext} from 'react';
-import {} from '../firebase/config';
+import { useState, useEffect, createContext } from "react";
+import { User, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { auth } from "@/firebase/config";
+import {useRouter} from 'next/router'; 
 
-export const AuthContext = createContext(
-    {
-        user: null,
-        setUser: () => {},
-        logout: () => {},
-        login: () => {},
-        signup: () => {},
-        error: null,
-        setError: () => {},
-        loading: false,
-        setLoading: () => {},
+export const AuthContext = createContext({
+  user: null as User | null,
+  logout: () => {},
+  loginWithGoogle: () => {},
+  error: null,
+
+  loading: false,
+});
+
+
+export const AuthProvider = ({ children }: any) => {
+  const [user, setUser] = useState<User | null>(null);
+  const [error, setError] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+
+// const router = useRouter();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+      setLoading(false);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  const logout = () => {
+    console.log("logout");
+    auth.signOut();
+  };
+
+  const loginWithGoogle = async () => {
+    console.log("loginWithGoogle");
+    try {
+      setLoading(true);
+      const provider = new GoogleAuthProvider();
+      const userCredential = await signInWithPopup(auth, provider);
+      setUser(userCredential.user);
+      setLoading(false);
+    } catch (error: any) {
+      setError(error.message);
+      setLoading(false);
     }
-);
+  };
 
-export const AuthProvider = ({children}:any) => {
-    const [user, setUser] = useState(null);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
+  const checkUser = () => {
+    console.log("checkUser");
+    // if (!user) {
+    //   router.push("/login");
+    // }
 
-    // useEffect(() => {
-    //     auth.onAuthStateChanged((user) => {
-    //         setUser(user);
-    //         setLoading(false);
-    //     });
-    // }, []);
+    // return user;
+  };
 
-    const signup = async (email:String, password:String) => {
-        console.log(email,password);
-        // setLoading(true);
-        // setError(null);
-        // try {
-        //     const res = await auth.createUserWithEmailAndPassword(email, password);
-        //     setUser(res.user);
-        //     setLoading(false);
-        //     return res;
-        // } catch (err) {
-        //     setError(err.message);
-        //     setLoading(false);
-        // }
-    };
+ 
 
-    const login = async (email:String, password:String) => {
-        setLoading(true);
-        // setLoading(true);
-        // setError(null);
-        // try {
-        //     const res = await auth.signInWithEmailAndPassword(email, password);
-        //     setUser(res.user);
-        //     setLoading(false);
-        //     return res;
-        // } catch (err) {
-        //     setError(err.message);
-        //     setLoading(false);
-        // }
-    };
 
-    const logout = async () => {
-        // setLoading(true);
-        // setError(null);
-        // try {
-        //     await auth.signOut();
-        //     setUser(null);
-        //     setLoading(false);
-        // } catch (err) {
-        //     setError(err.message);
-        //     setLoading(false);
-        // }
-    };
-
-    // return (
-    //     // <AuthContext.Provider
-    //     //     value={{
-    //     //         user,
-    //     //         setUser,
-    //     //         logout,
-    //     //         login,
-    //     //         signup,
-    //     //         error,
-    //     //         setError,
-    //     //         loading,
-    //     //         setLoading,
-    //     //     }}
-    //     // >
-    //     //     {children}
-    //     // </AuthContext.Provider>
-    // );
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        logout,
+        loginWithGoogle,
+        error,
+        loading,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };
