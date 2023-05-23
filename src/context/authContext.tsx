@@ -8,7 +8,6 @@ export const AuthContext = createContext({
   logout: () => {},
   loginWithGoogle: () => {},
   error: null,
-
   loading: false,
 });
 
