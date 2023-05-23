@@ -23,6 +23,8 @@ export const AuthContext = createContext<{
   loading: boolean;
   checkLove: (slug: string) => Promise<boolean | undefined>;
   addLove: (love: Love,slug:string) => Promise<void>;
+  getLove: (slug: string) => Promise<Love[] | undefined>;
+  
 }>({
   user: null,
   logout: () => {},
@@ -34,7 +36,12 @@ export const AuthContext = createContext<{
   },
   addLove: async (love: Love,slug:string) => {
     return; // Placeholder implementation
+  },
+  getLove: async (slug: string) => {
+    return undefined; // Placeholder implementation
   }
+
+
 });
 
 
@@ -171,6 +178,40 @@ export const AuthProvider = ({ children }: any) => {
       setLoading(false);
     }
   };
+
+  const getLove = async (slug: string) => {
+    try {
+      setLoading(true);
+      const db = getFirestore();
+      const loveRef = doc(db, "love", slug);
+  
+      const loveSnap = await getDoc(loveRef);
+      if (loveSnap.exists()) {
+        const loveData = loveSnap.data();
+        console.log(loveData);
+        if (loveData && Array.isArray(loveData.loves)) {
+          const allLoves = loveData.loves;
+          setLoading(false);
+          return allLoves;
+        } else {
+          console.log("No love objects found");
+        }
+      } else {
+        console.log("love does not exist");
+      }
+      setLoading(false);
+      return [];
+    } catch (error: any) {
+      console.log(error);
+      setError(error.message);
+      setLoading(false);
+      return [];
+    }
+  };
+  
+
+  
+
   
   
 
@@ -184,6 +225,7 @@ export const AuthProvider = ({ children }: any) => {
         loading,
         checkLove,
         addLove,
+        getLove,
       }}
     >
       {children}
