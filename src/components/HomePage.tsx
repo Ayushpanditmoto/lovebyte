@@ -4,7 +4,10 @@ function HomePage() {
   return (
     <div
     className="wrapper w-screen h-screen bg-cover"
-    style={{ backgroundImage: "url(love.jpg)" }}>HomePage</div>
+    style={{ backgroundImage: "url(love.jpg)" }}>
+        
+
+    </div>
   )
 }
 

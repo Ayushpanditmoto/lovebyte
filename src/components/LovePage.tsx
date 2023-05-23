@@ -1,18 +1,35 @@
-import React, { useState } from "react";
-import Image from "next/image";
-import { type } from "os";
+import React, { useState,useContext, useEffect } from "react";
+import { AuthContext } from "@/context/authContext";
+import { useRouter } from "next/router";
+import { Timestamp } from "firebase/firestore";
+import { timeStamp } from "console";
 
 const LoveCalculator = () => {
+  const timestamp = Date.now();
   const loveinfo = {
     name: "",
     partner: "",
     message: "",
+    createdAt: timestamp.toString(),
   };
+  const router = useRouter();
+  const { slug } = router.query;
+
+  const resetData = () => {
+    setLove(loveinfo);
+  };
+
+  
+
+ 
+
 
   const [love, setLove] = useState(loveinfo);
   const [showNameWarning, setshowNameWarning] = useState(false);
   const [showPartnerWarning, setShowPartnerWarning] = useState(false);
   const [showMessageWarning, setShowMessageWarning] = useState(false);
+
+  const {addLove} = useContext(AuthContext);
 
   const handleNameFocus = () => {
     setshowNameWarning(true);
@@ -59,6 +76,8 @@ const LoveCalculator = () => {
         return;
     }
     console.log(love);
+    addLove(love,slug as string);
+    resetData();
   };
 
   const isInputInvalid = (inputName: keyof typeof love) => {
@@ -85,6 +104,7 @@ const LoveCalculator = () => {
                     <input
                       type="text"
                       name="name"
+                      value={love.name}
                       placeholder="Enter your name"
                       onChange={handleInput}
                       onFocus={handleNameFocus}
@@ -102,6 +122,7 @@ const LoveCalculator = () => {
                     <label className="text-white">Your Partner&apos;s Name</label>
                     <input
                       type="text"
+                      value={love.partner}
                       onChange={handleInput}
                       name="partner"
                       placeholder="Enter your partner's name"
@@ -122,6 +143,7 @@ const LoveCalculator = () => {
                         <label className="text-white">Message</label>
                         <textarea
                           name="message"
+                          value={love.message}
                           onChange={handleInput}
                           placeholder="What do you like about your partner"
                           onFocus={handleMessageFocus}

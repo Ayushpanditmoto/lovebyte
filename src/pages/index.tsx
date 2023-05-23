@@ -13,7 +13,7 @@ export default function Home() {
 
   if (loading) return <Spinner />;
 
-  if (user) return <HomePage />;
+  // if (user) return <HomePage />;
 
   return (
     <div
