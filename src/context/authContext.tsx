@@ -1,14 +1,10 @@
 import { useState, useEffect, createContext } from "react";
 import { User, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import {
-  collection,
-  addDoc,
   getFirestore,
-  getDocs,
   doc,
   getDoc,
   updateDoc,
-  deleteDoc,
   setDoc,
 } from "firebase/firestore";
 import { auth } from "@/firebase/config";
@@ -181,17 +177,18 @@ export const AuthProvider = ({ children }: any) => {
 
   const getLove = async (slug: string) => {
     try {
-      setLoading(true);
+      // setLoading(true);
       const db = getFirestore();
       const loveRef = doc(db, "love", slug);
   
       const loveSnap = await getDoc(loveRef);
+      console.log(loveSnap);
       if (loveSnap.exists()) {
-        const loveData = loveSnap.data();
+        const loveData =await loveSnap.data();
         console.log(loveData);
         if (loveData && Array.isArray(loveData.loves)) {
           const allLoves = loveData.loves;
-          setLoading(false);
+          // setLoading(false);
           return allLoves;
         } else {
           console.log("No love objects found");
@@ -199,7 +196,7 @@ export const AuthProvider = ({ children }: any) => {
       } else {
         console.log("love does not exist");
       }
-      setLoading(false);
+      // setLoading(false);
       return [];
     } catch (error: any) {
       console.log(error);

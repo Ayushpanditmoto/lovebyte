@@ -4,15 +4,18 @@ import { auth } from '../firebase/config';
 import { AiFillCopy } from 'react-icons/ai';
 import { AuthContext } from '@/context/authContext';
 import Love from '@/types/lovetype';
+import Spinner from './spinner';
 
-const uid = auth.currentUser?.uid ?? "404";
-const shareableLink = `https://lovebytes.vercel.app/${uid}`;
+
 
 function HomePage() {
-  const { getLove } = useContext(AuthContext);
+  let uid: string;
+
+
+  const { getLove ,loading} = useContext(AuthContext);
   const router = useRouter();
   const [love, setLove] = useState<Love[]>([]);
-  const [count, setCount] = useState(0);
+  const [shareableLink, setShareableLink] = useState<string>("");
 
   const fetchLove = async () => {
     const loveData = await getLove(uid);
@@ -20,15 +23,21 @@ function HomePage() {
   };
   useEffect(() => {
     console.log("useEffect");
-    
+    uid = auth.currentUser?.uid ?? "404";
+    setShareableLink(`https://lovebytes.vercel.app/${uid}`);
 
-    fetchLove();
-  }, [count]);
+   fetchLove();
+  }, []);
+
 
   const handleCopy = () => {
     navigator.clipboard.writeText(shareableLink);
     alert("Copied to clipboard!");
   };
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="wrapper w-screen h-screen bg-cover" style={{ backgroundImage: "url(love.jpg)" }}>
