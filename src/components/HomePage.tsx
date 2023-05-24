@@ -78,10 +78,10 @@ function HomePage() {
         </button>
       </div>
 
-      {love.length === 0 || love==undefined && (
+      { love.length==0 && (
         <div className="flex flex-col items-center p-5 ">
           <h1 className="text-m font-bold text-white">Share this Link</h1>
-          <p className="bg-gray-600 rounded-md p-5 text-white whitespace-normal break-all w-auto">
+          <p className="bg-white rounded-md p-5 whitespace-normal break-all w-auto">
             Prank your friends with this link and see their reaction when they
             calculate their love percentage. Then you will know how much they
             love you.
@@ -111,10 +111,11 @@ function HomePage() {
             <p>{loves.message}</p>
           </div>
         </div>
-      ))}<button className="text-sm bg-purple-600 font-bold text-white cursor-pointer flex justify-center items-center
+      ))}
+      {/* <button className="text-sm bg-purple-600 font-bold text-white cursor-pointer flex justify-center items-center
       " onClick={() => auth.signOut()}>
         Logout
-      </button>
+      </button> */}
     </div>
   );
 }
