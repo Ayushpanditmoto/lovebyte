@@ -60,10 +60,7 @@ function HomePage() {
     >
       <div className="flex flex-row justify-center p-5">
         <h1 className="text-4xl font-bold text-white">Love ♥ Bytes</h1> 
-        <button className="text-sm bg-purple-600 font-bold text-white ml-4 cursor-pointer flex justify-center items-center
-        " onClick={() => auth.signOut()}>
-          Logout
-        </button>
+        
       </div>
       <div className="flex flex-col items-center p-5 ">
         <h1 className="text-2xl font-bold text-white">Shareable Link</h1>
@@ -80,6 +77,18 @@ function HomePage() {
           Copy Link
         </button>
       </div>
+
+      {love.length === 0 || love==undefined && (
+        <div className="flex flex-col items-center p-5 ">
+          <h1 className="text-m font-bold text-white">Share this Link</h1>
+          <p className="bg-gray-600 rounded-md p-5 text-white whitespace-normal break-all w-auto">
+            Prank your friends with this link and see their reaction when they
+            calculate their love percentage. Then you will know how much they
+            love you.
+          </p>
+          
+        </div>
+      )}
 
       {love.map((loves, index) => (
         <div key={index} className="flex shadow-md flex-col m-5 rounded-md bg-white p-5 relative">
@@ -102,7 +111,10 @@ function HomePage() {
             <p>{loves.message}</p>
           </div>
         </div>
-      ))}
+      ))}<button className="text-sm bg-purple-600 font-bold text-white cursor-pointer flex justify-center items-center
+      " onClick={() => auth.signOut()}>
+        Logout
+      </button>
     </div>
   );
 }
