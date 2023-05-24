@@ -102,18 +102,18 @@ function HomePage() {
         //   </table>
         // </div>
 
-        <div key={index} className="flex flex-col m-5 rounded-md bg-lime-200 p-5 relative">
+        <div key={index} className="flex shadow-md flex-col m-5 rounded-md bg-white p-5 relative">
           <div className="absolute -top-4 -left-4 rounded-full bg-blue-500 text-white w-8 h-8 flex items-center justify-center">
             <span className="text-sm">{love.length - index}</span>
           </div>
           <div className="text-l bg-white rounded-sm mb-4">{formatDateTime(loves.createdAt)}</div>
           <div className="grid grid-cols-2 gap-4">
-            <div>
-              <h2 className="text-l font-bold">Your Love:</h2>
+            <div className="whitespace-normal break-all w-auto bg-indigo-600 rounded-md p-2">
+              <h2 className="text-m font-bold">Name</h2>
               <p>{loves.name}</p>
             </div>
-            <div>
-              <h2 className="text-l font-bold">Your Crush:</h2>
+            <div className="whitespace-normal break-all w-auto bg-violet-500 rounded-md p-2">
+              <h2 className="text-m font-bold">Crush</h2>
               <p>{loves.partner}</p>
             </div>
           </div>
