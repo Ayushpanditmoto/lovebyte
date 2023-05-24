@@ -2,7 +2,6 @@ import React, { useState,useContext, useEffect } from "react";
 import { AuthContext } from "@/context/authContext";
 import { useRouter } from "next/router";
 import { Timestamp } from "firebase/firestore";
-import { timeStamp } from "console";
 
 const LoveCalculator = () => {
   const timestamp = Date.now();
@@ -81,9 +80,16 @@ const LoveCalculator = () => {
   };
 
   const isInputInvalid = (inputName: keyof typeof love) => {
-    return love[inputName].length < 3;
+    const inputValue = love[inputName];
+  
+    if (typeof inputValue === "string") {
+      return inputValue.length < 3;
+    }
+  
+    // Handle the case when `inputValue` is of type `Timestamp`
+    return false; // Or any other appropriate logic for handling `Timestamp`
   };
-
+  
   return (
     <>
       <div

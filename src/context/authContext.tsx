@@ -189,7 +189,10 @@ export const AuthProvider = ({ children }: any) => {
         if (loveData && Array.isArray(loveData.loves)) {
           const allLoves = loveData.loves;
           console.log(allLoves);
-        console.log(Date.parse(allLoves[0].createdAt)  );
+        //sort by date
+        allLoves.sort((a, b) => {
+          return b.createdAt - a.createdAt;
+        });
 
           // setLoading(false);
           return allLoves;

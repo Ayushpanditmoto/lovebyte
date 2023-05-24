@@ -58,11 +58,24 @@ function HomePage() {
       </div>
 
       {love.map((loves, index) => (
-        <div className="flex flex-col m-5 rounded-md bg-lime-200 items-center p-5 relative">
+        <div key={index} className="flex flex-col m-5 rounded-md bg-lime-200 items-center p-5 relative">
           <div className="absolute -top-4 -left-4 rounded-full bg-blue-500 text-white w-8 h-8 flex items-center justify-center">
             <span className="text-sm">{love.length - index}</span>
+           
+
           </div>
           <table className="w-full table-auto">
+            <thead>
+            {
+              new Date(parseInt(loves.createdAt)).toLocaleDateString("en-US", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })
+              }
+            </thead>
+
             <tr>
               <td className="px-4 py-2">Name</td>
               <td className="px-4 py-2">Crush</td>
