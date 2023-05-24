@@ -44,27 +44,41 @@ function HomePage() {
       <div className="flex flex-col items-center p-5">
         <h1 className="text-4xl font-bold text-white">Love ♥ Calculator</h1>
       </div>
-      <div className="flex flex-col items-center p-5 bg-emerald-500">
+      <div className="flex flex-col items-center p-5 ">
         <h1 className="text-2xl font-bold text-white">Shareable Link</h1>
-        <p className="text-white">{shareableLink}</p>
+        <p className="bg-gray-600 rounded-md p-5 text-white whitespace-normal break-all w-auto">{shareableLink}</p>
         <button
           onClick={handleCopy}
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-10"
+          className="bg-red-500  hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-3"
         >
           <AiFillCopy className="inline-block mr-2" />
           Copy Link
         </button>
       </div>
+      
+
       {love.map((love) => (
-        <div className="flex flex-col items-center p-5 bg-emerald-500" key={love.createdAt}>
-          <h1 className="text-2xl font-bold text-white">Your Love</h1>
-          <p className="text-white">{love.name}</p>
-          <h1 className="text-2xl font-bold text-white">Your Crush</h1>
-          <p className="text-white">{love.partner}</p>
-          <h1 className="text-2xl font-bold text-white">Your Love Percentage</h1>
-          <p className="text-white">{love.message}</p>
+        <div className="flex flex-col m-1 bg-lime-200 items-center p-5">
+        <table className="w-full">
+    <tr>
+      <td className="px-4 py-2">Your Love</td>
+      <td className="px-4 py-2">:</td>
+      <td className="px-4 py-2">{love.name}</td>
+    </tr>
+    <tr>
+      <td className="px-4 py-2">Your Crush</td>
+      <td className="px-4 py-2">:</td>
+      <td className="px-4 py-2">{love.partner}</td>
+    </tr>
+    <tr>
+      <td className="px-4 py-2">Your Love Percentage</td>
+      <td className="px-4 py-2">:</td>
+      <td className="px-4 py-2">{love.message}</td>
+    </tr>
+  </table>
         </div>
       ))}
+
     </div>
   );
 }

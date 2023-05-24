@@ -26,7 +26,7 @@ a:hover{
 
 body{
     font-family: 'Poppins', sans-serif;
-    background: #fafafa;
+    background: #00483b;
     width: 100%;
     overflow-x: hidden;
     scroll-behavior: smooth;
@@ -40,7 +40,7 @@ body::-webkit-scrollbar {
   }
    
   body::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.484);
+    background-color: rgba(176, 176, 176, 0.484);
     border-radius: 10px;
   }
 ul{
