@@ -60,7 +60,7 @@ function HomePage() {
     >
       <div className="flex flex-row justify-center p-5">
         <h1 className="text-4xl font-bold text-white">Love ♥ Bytes</h1> 
-        <button className="text-l bg-purple-600 font-bold text-white ml-5 cursor-pointer flex justify-center items-center
+        <button className="text-sm bg-purple-600 font-bold text-white ml-4 cursor-pointer flex justify-center items-center
         " onClick={() => auth.signOut()}>
           Logout
         </button>
