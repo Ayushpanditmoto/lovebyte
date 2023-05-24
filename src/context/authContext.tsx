@@ -182,12 +182,15 @@ export const AuthProvider = ({ children }: any) => {
       const loveRef = doc(db, "love", slug);
   
       const loveSnap = await getDoc(loveRef);
-      console.log(loveSnap);
+
       if (loveSnap.exists()) {
         const loveData =await loveSnap.data();
         console.log(loveData);
         if (loveData && Array.isArray(loveData.loves)) {
           const allLoves = loveData.loves;
+          console.log(allLoves);
+        console.log(Date.parse(allLoves[0].createdAt)  );
+
           // setLoading(false);
           return allLoves;
         } else {
