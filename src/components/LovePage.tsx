@@ -1,7 +1,6 @@
 import React, { useState,useContext, useEffect } from "react";
 import { AuthContext } from "@/context/authContext";
 import { useRouter } from "next/router";
-import { Timestamp } from "firebase/firestore";
 
 const LoveCalculator = () => {
   const timestamp = Date.now();
@@ -28,7 +27,7 @@ const LoveCalculator = () => {
   const [showPartnerWarning, setShowPartnerWarning] = useState(false);
   const [showMessageWarning, setShowMessageWarning] = useState(false);
 
-  const {addLove} = useContext(AuthContext);
+  const {addLove,resultPrank} = useContext(AuthContext);
 
   const handleNameFocus = () => {
     setshowNameWarning(true);
@@ -76,6 +75,7 @@ const LoveCalculator = () => {
     }
     console.log(love);
     addLove(love,slug as string);
+    resultPrank();
     resetData();
   };
 
@@ -96,8 +96,8 @@ const LoveCalculator = () => {
         className="wrapper w-screen h-screen bg-cover"
         style={{ backgroundImage: "url(love.jpg)" }}
       >
-        <div className="flex justify-center items-center h-screen">
-          <div className="text-center">
+        <div className="flex justify-center">
+          <div className="text-center mt-14">
             <h1 className="text-4xl font-bold text-white">Love Calculator</h1>
             <p className="text-white">
               Find out how much your partner loves you
@@ -169,7 +169,7 @@ const LoveCalculator = () => {
                     </div>
                     <button
                       onClick={handleSubmit}
-                      className="bg-white text-blue-500 rounded-md p-2 mt-5"
+                      className="bg-white text-black rounded-md p-2 mt-5"
                     >
                       Calculate Love Percentage
                     </button>

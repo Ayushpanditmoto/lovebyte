@@ -9,7 +9,9 @@ import {
 } from "firebase/firestore";
 import { auth } from "@/firebase/config";
 import Love from "../types/lovetype";
-import { useRouter } from "next/router";
+import { useRouter } from "next/router"
+import Cookies from 'js-cookie';
+
 
 export const AuthContext = createContext<{
   user: User | null;
@@ -17,9 +19,11 @@ export const AuthContext = createContext<{
   loginWithGoogle: () => void;
   error: null;
   loading: boolean;
+  resultPrank: ()=>Promise<void>;
   checkLove: (slug: string) => Promise<boolean | undefined>;
   addLove: (love: Love,slug:string) => Promise<void>;
   getLove: (slug: string) => Promise<Love[] | undefined>;
+  
   
 }>({
   user: null,
@@ -35,6 +39,9 @@ export const AuthContext = createContext<{
   },
   getLove: async (slug: string) => {
     return undefined; // Placeholder implementation
+  },
+  resultPrank: ()=> {
+    return Promise.resolve();
   }
 
 
@@ -212,11 +219,41 @@ export const AuthProvider = ({ children }: any) => {
     }
   };
   
+  const resultPrank = async () => {
+    try {
+      // Check if cookies are available
+      const cookies = Cookies.get('index');
+      let index = cookies ? parseInt(cookies) : 0; // If cookies exist, parse the value as an integer, otherwise set it to 0
+      index += 1; // Increment the index value
+  
+      // Set the updated index value as a cookie
+      Cookies.set('index', index.toString(), { expires: 7 });
+  
+      if (index > 1) {
+        // Show prank page
+        showPrankPage(); // Replace with your implementation to display the prank page
+        // Reset the index value
+        Cookies.set('index', '0', { expires: 7 });
+      } else {
+        // Show result page
+        showResultPage(); // Replace with your implementation to display the result page
+      }
+    } catch (error) {
+      // Handle any errors that occur during the process
+      console.error(error);
+    }
+  };
 
+  const showPrankPage = () => {
+    console.log('Showing prank page');
+    router.push('/prank');
+  };
   
+  const showResultPage = () => {
+    console.log('Showing result page');
+    router.push('/result');
+  };
 
-  
-  
 
   return (
     <AuthContext.Provider
@@ -229,6 +266,7 @@ export const AuthProvider = ({ children }: any) => {
         checkLove,
         addLove,
         getLove,
+        resultPrank,
       }}
     >
       {children}
