@@ -48,7 +48,7 @@ export default function Home() {
           <p className="text-white m-5">
             Made with <span className="text-red-500">❤</span> by{" "}
             <a href="" className="text-red-500">
-              @saviomartin
+              @ayushpanditmoto
             </a>
           </p>
         </div>
