@@ -1,7 +1,7 @@
 import React, { useState,useContext, useEffect } from "react";
 import { AuthContext } from "@/context/authContext";
 import { useRouter } from "next/router";
-import { AiFillHeart } from "react-icons/ai";
+
 const LoveCalculator = () => {
   const timestamp = Date.now();
   const loveinfo = {
@@ -97,11 +97,8 @@ const LoveCalculator = () => {
         style={{ backgroundImage: "url(love.jpg)" }}
       >
         <div className="flex justify-center">
-          <div className="text-center mt-14 bg-slate-400 p-20 rounded">
-            
-            
-
-            <h1 className="text-4xl font-bold text-white flex"><AiFillHeart></AiFillHeart>Love Calculator<AiFillHeart></AiFillHeart></h1>
+          <div className="text-center mt-14">
+            <h1 className="text-4xl font-bold text-white">Love Calculator</h1>
             <p className="text-white">
               Find out how much your partner loves you
             </p>
@@ -123,11 +120,10 @@ const LoveCalculator = () => {
                       }`}
                     />
                     {showNameWarning && isInputInvalid("name") && (
-                      <p className=" bg-red-300 p-1 rounded m-2">
+                      <p className="text-red-500">
                         Minimum length should be 3 characters
                       </p>
                     )}
-                    <br></br>
 
                     <label className="text-white">Your Partner&apos;s Name</label>
                     <input
@@ -143,11 +139,11 @@ const LoveCalculator = () => {
                       }`}
                     />
                     {showPartnerWarning && isInputInvalid("partner") && (
-                      <p className=" bg-red-300 p-1 rounded m-2">
+                      <p className="text-red-500">
                         Minimum length should be 3 characters
                       </p>
                     )}
-                    <br></br>
+
                     <div className="flex justify-center items-center mt-5">
                       <div className="flex flex-col">
                         <label className="text-white">Message</label>
@@ -158,14 +154,14 @@ const LoveCalculator = () => {
                           placeholder="What do you like about your partner"
                           onFocus={handleMessageFocus}
                           onBlur={handleMessageBlur}
-                          className={` resize-none border-2 border-white rounded-md p-2 ${
+                          className={`border-2 border-white rounded-md p-2 ${
                             isInputInvalid("message") ? "border-red-500" : ""
                           }`}
                           rows={5}
                           cols={25}
                         />
                         {showMessageWarning && isInputInvalid("message") && (
-                          <p className=" bg-red-300 p-1 rounded m-2">
+                          <p className="text-red-500">
                             Minimum length should be 3 characters
                           </p>
                         )}
@@ -173,7 +169,7 @@ const LoveCalculator = () => {
                     </div>
                     <button
                       onClick={handleSubmit}
-                      className=" bg-teal-300 text-black rounded-md p-2 mt-5 hover:bg-teal-400"
+                      className="bg-white text-black rounded-md p-2 mt-5"
                     >
                       Calculate Love Percentage
                     </button>

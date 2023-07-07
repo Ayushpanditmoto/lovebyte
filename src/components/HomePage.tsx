@@ -13,7 +13,7 @@ function HomePage() {
   const { getLove, loading } = useContext(AuthContext);
   const [love, setLove] = useState<Love[]>([]);
   const [shareableLink, setShareableLink] = useState<string>("");
-  const [success, setsuccess] = useState(false)
+
   const fetchLove = async () => {
     const loveData = await getLove(uid);
     setLove(loveData ?? []);
@@ -45,7 +45,7 @@ function HomePage() {
       input.select();
       document.execCommand('copy');
       document.body.removeChild(input);
-      setsuccess(true)
+      alert("Copied to clipboard!");
     }
   };
 
@@ -69,13 +69,6 @@ function HomePage() {
           {shareableLink}
         </p>
         </Link>
-        {success &&(
-          <div>
-            <h1>success</h1>
-          </div>
-        )
-
-        }
         <button
           onClick={handleCopy}
           className="bg-red-500  hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-3"
@@ -99,26 +92,25 @@ function HomePage() {
 
       {love.map((loves, index) => (
         <div key={index} className="flex shadow-md flex-col m-5 rounded-md bg-white p-5 relative">
-        <div className="absolute -top-4 -left-4 rounded-full bg-teal-500 text-white w-8 h-8 flex items-center justify-center">
-          <span className="text-sm">{love.length - index}</span>
-        </div>
-        <div className="text-l bg-white rounded-sm mb-4">{formatDateTime(loves.createdAt)}</div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="whitespace-normal break-all w-auto bg-purple-500 rounded-md p-2">
-            <h2 className="text-m text-gray-900 font-bold">Name</h2>
-            <p className="text-white">{loves.name}</p>
+          <div className="absolute -top-4 -left-4 rounded-full bg-blue-500 text-white w-8 h-8 flex items-center justify-center">
+            <span className="text-sm">{love.length - index}</span>
           </div>
-          <div className="whitespace-normal break-all w-auto bg-pink-500 rounded-md p-2">
-            <h2 className="text-m text-gray-900 font-bold">Crush</h2>
-            <p className="text-white">{loves.partner}</p>
+          <div className="text-l bg-white rounded-sm mb-4">{formatDateTime(loves.createdAt)}</div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="whitespace-normal break-all w-auto bg-indigo-600 rounded-md p-2">
+              <h2 className="text-m text-gray-900 font-bold">Name</h2>
+              <p className="text-white">{loves.name}</p>
+            </div>
+            <div className="whitespace-normal break-all w-auto bg-violet-500 rounded-md p-2">
+              <h2 className="text-m text-gray-900 font-bold">Crush</h2>
+              <p className="text-white">{loves.partner}</p>
+            </div>
+          </div>
+          <div className="mt-4 whitespace-normal break-all w-auto">
+            <h2 className="text-l font-bold">Your Message:</h2>
+            <p>{loves.message}</p>
           </div>
         </div>
-        <div className="whitespace-normal break-all w-auto bg-cyan-500 rounded-md p-2 mt-2">
-          <h2 className="text-l font-bold">Your Message:</h2>
-          <p>{loves.message}</p>
-        </div>
-      </div>
-      
       ))}
       {/* <button className="text-sm bg-purple-600 font-bold text-white cursor-pointer flex justify-center items-center
       " onClick={() => auth.signOut()}>
