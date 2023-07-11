@@ -14,16 +14,58 @@
     --primary-color: #06b785;
 }
 
-
+.bg-gray-600{
+    background: inherit;
+    color: #AAC8A7;
+    will-change: transform;
+    transition: transform 450ms;
+}
+.bg-gray-600:hover{
+    transition: transform 125ms;
+    transform: translateY(-10px);
+}
 a{
     font-size: 1rem;
     text-decoration: none;
-}
-a:hover{
-    text-decoration: underline;
-    color: var(--primary-color);
+    will-change: transform;
+    transition: transform 450ms;
 }
 
+a:hover{
+    text-decoration: none;
+    transition: transform 125ms;
+    transform: translateY(-10px);
+    color: var(--primary-color);
+}
+.copy-btn{
+    will-change: transform;
+    transition: transform 450ms;
+}
+.copy-btn:hover{
+    transition: transform 125ms;
+    transform: translateY(-10px);
+}
+.bg-white, .text-4xl, .text-2xl, .text-m{
+    background: inherit;
+    font-size: larger;
+    font-weight: 600;
+    color: #AAC8A7;
+    will-change: transform;
+    transition: transform 450ms;  
+}
+.bg-white:hover, .text-4xl:hover, .text-2xl:hover, .text-m:hover{
+    transition: transform 125ms;
+    transform: translateY(-10px);
+}
+.text-4xl{
+    font-size: xx-large;
+}
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 body{
     font-family: 'Poppins', sans-serif;
     background: #00a587;
@@ -53,8 +95,8 @@ button{
     border: none;
     outline: none;
     cursor: pointer;
-    background-color: #0068e7;
-    color: #fff;
+    background-color: #1A5D1A;
+    color: #DDFFBB;
     padding: 10px 20px;
     border-radius: 5px;
     font-size: 16px;
@@ -62,7 +104,7 @@ button{
     transition: all 0.3s ease;
 }
 button:hover{
-    background-color: #0052b3;
+    background-color: #263A29;
 }
 .spinner {
     display: none !important;
