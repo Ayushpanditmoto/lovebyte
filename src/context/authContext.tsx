@@ -9,9 +9,8 @@ import {
 } from "firebase/firestore";
 import { auth } from "@/firebase/config";
 import Love from "../types/lovetype";
-import { useRouter } from "next/router"
-import Cookies from 'js-cookie';
-
+import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 export const AuthContext = createContext<{
   user: User | null;
@@ -19,12 +18,10 @@ export const AuthContext = createContext<{
   loginWithGoogle: () => void;
   error: null;
   loading: boolean;
-  resultPrank: ()=>Promise<void>;
+  resultPrank: () => Promise<void>;
   checkLove: (slug: string) => Promise<boolean | undefined>;
-  addLove: (love: Love,slug:string) => Promise<void>;
+  addLove: (love: Love, slug: string) => Promise<void>;
   getLove: (slug: string) => Promise<Love[] | undefined>;
-  
-  
 }>({
   user: null,
   logout: () => {},
@@ -34,20 +31,16 @@ export const AuthContext = createContext<{
   checkLove: async (slug: string) => {
     return false; // Placeholder implementation
   },
-  addLove: async (love: Love,slug:string) => {
+  addLove: async (love: Love, slug: string) => {
     return; // Placeholder implementation
   },
   getLove: async (slug: string) => {
     return undefined; // Placeholder implementation
   },
-  resultPrank: ()=> {
+  resultPrank: () => {
     return Promise.resolve();
-  }
-
-
+  },
 });
-
-
 
 export const AuthProvider = ({ children }: any) => {
   const [user, setUser] = useState<User | null>(null);
@@ -158,7 +151,7 @@ export const AuthProvider = ({ children }: any) => {
       setLoading(true);
       const db = getFirestore();
       const loveRef = doc(db, "love", slug);
-  
+
       const loveSnap = await getDoc(loveRef);
       if (loveSnap.exists()) {
         const existingData = loveSnap.data();
@@ -187,19 +180,19 @@ export const AuthProvider = ({ children }: any) => {
       // setLoading(true);
       const db = getFirestore();
       const loveRef = doc(db, "love", slug);
-  
+
       const loveSnap = await getDoc(loveRef);
 
       if (loveSnap.exists()) {
-        const loveData =await loveSnap.data();
+        const loveData = await loveSnap.data();
         console.log(loveData);
         if (loveData && Array.isArray(loveData.loves)) {
           const allLoves = loveData.loves;
           console.log(allLoves);
-        //sort by date
-        allLoves.sort((a, b) => {
-          return b.createdAt - a.createdAt;
-        });
+          //sort by date
+          allLoves.sort((a, b) => {
+            return b.createdAt - a.createdAt;
+          });
 
           // setLoading(false);
           return allLoves;
@@ -218,22 +211,22 @@ export const AuthProvider = ({ children }: any) => {
       return [];
     }
   };
-  
+
   const resultPrank = async () => {
     try {
       // Check if cookies are available
-      const cookies = Cookies.get('index');
+      const cookies = Cookies.get("index");
       let index = cookies ? parseInt(cookies) : 0; // If cookies exist, parse the value as an integer, otherwise set it to 0
       index += 1; // Increment the index value
-  
+
       // Set the updated index value as a cookie
-      Cookies.set('index', index.toString(), { expires: 7 });
-  
+      Cookies.set("index", index.toString(), { expires: 7 });
+
       if (index > 1) {
         // Show prank page
         showPrankPage(); // Replace with your implementation to display the prank page
         // Reset the index value
-        Cookies.set('index', '0', { expires: 7 });
+        Cookies.set("index", "0", { expires: 7 });
       } else {
         // Show result page
         showResultPage(); // Replace with your implementation to display the result page
@@ -245,15 +238,14 @@ export const AuthProvider = ({ children }: any) => {
   };
 
   const showPrankPage = () => {
-    console.log('Showing prank page');
-    router.push('/prank');
-  };
-  
-  const showResultPage = () => {
-    console.log('Showing result page');
-    router.push('/result');
+    console.log("Showing prank page");
+    router.push("/prank");
   };
 
+  const showResultPage = () => {
+    console.log("Showing result page");
+    router.push("/result");
+  };
 
   return (
     <AuthContext.Provider

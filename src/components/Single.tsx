@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function Single() {
-  return (
-    <div>
-        
-    </div>
-  )
+  return <div></div>;
 }
 
-export default Single
+export default Single;
