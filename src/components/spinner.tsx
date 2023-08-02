@@ -7,16 +7,12 @@ const override: CSSProperties = {
   margin: "0 auto",
   borderColor: "red",
   height: "100vh",
-    width: "100vw",
-    
+  width: "100vw",
 };
 
 function Spinner() {
-
-
   return (
     <div className="w-screen h-screen ">
-    
       <BarLoader
         color={"#37baa8"}
         cssOverride={override}
@@ -24,7 +20,6 @@ function Spinner() {
         data-testid="loader"
       />
     </div>
-    
   );
 }
 
