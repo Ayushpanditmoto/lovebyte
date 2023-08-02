@@ -62,7 +62,7 @@ function HomePage() {
       <div className="flex flex-row justify-center p-5">
         <h1 className="text-4xl font-bold text-white">Love ♥ Bytes</h1>
       </div>
-      <div className="flex flex-col items-center p-5 ">
+      <div className="link-container flex flex-col items-center p-5 ">
         <h1 className="text-2xl font-bold text-white">Shareable Link</h1>
         <Link href={shareableLink}>
           <p className="bg-gray-600 rounded-md p-5 text-white whitespace-normal break-all w-auto">
@@ -76,7 +76,7 @@ function HomePage() {
         )}
         <button
           onClick={handleCopy}
-          className="bg-red-500  hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-3"
+          className="copy-btn"
         >
           <AiFillCopy className="inline-block mr-2" />
           Copy Link
