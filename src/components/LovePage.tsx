@@ -1,4 +1,4 @@
-import React, { useState,useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "@/context/authContext";
 import { useRouter } from "next/router";
 import { AiFillHeart } from "react-icons/ai";
@@ -17,17 +17,12 @@ const LoveCalculator = () => {
     setLove(loveinfo);
   };
 
-  
-
- 
-
-
   const [love, setLove] = useState(loveinfo);
   const [showNameWarning, setshowNameWarning] = useState(false);
   const [showPartnerWarning, setShowPartnerWarning] = useState(false);
   const [showMessageWarning, setShowMessageWarning] = useState(false);
 
-  const {addLove,resultPrank} = useContext(AuthContext);
+  const { addLove, resultPrank } = useContext(AuthContext);
 
   const handleNameFocus = () => {
     setshowNameWarning(true);
@@ -62,47 +57,48 @@ const LoveCalculator = () => {
     e.preventDefault();
     //validate
     if (love.name.length < 3) {
-        setshowNameWarning(true);
-        return;
+      setshowNameWarning(true);
+      return;
     }
     if (love.partner.length < 3) {
-        setShowPartnerWarning(true);
-        return;
+      setShowPartnerWarning(true);
+      return;
     }
     if (love.message.length < 3) {
-        setShowMessageWarning(true);
-        return;
+      setShowMessageWarning(true);
+      return;
     }
     console.log(love);
-    addLove(love,slug as string);
+    addLove(love, slug as string);
     resultPrank();
     resetData();
   };
 
   const isInputInvalid = (inputName: keyof typeof love) => {
     const inputValue = love[inputName];
-  
+
     if (typeof inputValue === "string") {
       return inputValue.length < 3;
     }
-  
+
     // Handle the case when `inputValue` is of type `Timestamp`
     return false; // Or any other appropriate logic for handling `Timestamp`
   };
-  
+
   return (
     <>
       <div
-        className="wrapper w-screen h-screen bg-cover"
+        className="wrapper w-screen bg-cover"
         style={{ backgroundImage: "url(love.jpg)" }}
       >
         <div className="flex justify-center">
-          <div className="text-center mt-14 bg-slate-400 p-20 rounded">
-            
-            
-
-            <h1 className="text-4xl font-bold text-white flex"><AiFillHeart></AiFillHeart>Love Calculator<AiFillHeart></AiFillHeart></h1>
+          <div className="text-center mt-14 backdrop-blur-md bg-neutral-900/30 p-20 rounded-2xl">
+            <h1 className="text-4xl font-bold text-white flex">
+              <AiFillHeart></AiFillHeart>Love Calculator
+              <AiFillHeart></AiFillHeart>
+            </h1>
             <p className="text-white">
+              <br />
               Find out how much your partner loves you
             </p>
             <form className="mt-10">
@@ -118,7 +114,7 @@ const LoveCalculator = () => {
                       onChange={handleInput}
                       onFocus={handleNameFocus}
                       onBlur={handleNameBlur}
-                      className={`border-2 border-white rounded-md p-2 ${
+                      className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${
                         isInputInvalid("name") ? "border-red-500" : ""
                       }`}
                     />
@@ -129,7 +125,9 @@ const LoveCalculator = () => {
                     )}
                     <br></br>
 
-                    <label className="text-white">Your Partner&apos;s Name</label>
+                    <label className="text-white">
+                      Your Partner&apos;s Name
+                    </label>
                     <input
                       type="text"
                       value={love.partner}
@@ -138,7 +136,7 @@ const LoveCalculator = () => {
                       placeholder="Enter your partner's name"
                       onFocus={handlePartnerFocus}
                       onBlur={handlePartnerBlur}
-                      className={`border-2 border-white rounded-md p-2 ${
+                      className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${
                         isInputInvalid("partner") ? "border-red-500" : ""
                       }`}
                     />
@@ -152,15 +150,15 @@ const LoveCalculator = () => {
                       <div className="flex flex-col">
                         <label className="text-white">Message</label>
                         <textarea
+                          className={`block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${
+                            isInputInvalid("message") ? "border-red-500" : ""
+                          }`}
                           name="message"
                           value={love.message}
                           onChange={handleInput}
                           placeholder="What do you like about your partner"
                           onFocus={handleMessageFocus}
                           onBlur={handleMessageBlur}
-                          className={` resize-none border-2 border-white rounded-md p-2 ${
-                            isInputInvalid("message") ? "border-red-500" : ""
-                          }`}
                           rows={5}
                           cols={25}
                         />
@@ -183,6 +181,8 @@ const LoveCalculator = () => {
             </form>
           </div>
         </div>
+        <br />
+        <br />
       </div>
     </>
   );
